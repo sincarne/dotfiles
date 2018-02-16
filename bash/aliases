@@ -1,0 +1,104 @@
+# Easier navigation
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias fcd='cd $(fzf)'
+
+# Set tags with tag: https://github.com/jdberry/tag/
+alias ttd='tag --set \"To Do\"'
+alias tdone='tag --set \"Done\"'
+alias tdoing='tag --set \"Doing\"'
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+	colorflag="--color"
+else # OS X `ls`
+	colorflag="-G"
+fi
+
+# List all files colorized in long format
+alias l="ls -lF ${colorflag}"
+
+# List all files colorized in long format, including dot files
+alias la="ls -laF ${colorflag}"
+
+# List only directories
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# sl. Always with the sl
+alias sl="ls"
+
+# Always use color output for `ls`
+alias ls="command ls ${colorflag}"
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
+
+# Flush Directory Service cache
+alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+# Clean up LaunchServices to remove duplicates in the “Open With” menu
+alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user && killall Finder"
+
+# Trim new lines and copy to clipboard
+alias c="tr -d '\n' | pbcopy"
+
+# Recursively delete `.DS_Store` files
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# ROT13-encode text. Works for decoding, too! ;)
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Clear recent places
+alias no-recent="defaults delete -g NSNavRecentPlaces"
+
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
+
+# Use lynx in no color mode
+alias blynx='lynx --nocolor'
+
+# Use: wifi on/off
+alias wifi='networksetup -setairportpower en1'
+
+# Human readable size of folders off current folder
+alias foldersize='du -h -d 1'
+
+# Download videos (ytm to convert them to audio only)
+alias yt='youtube-dl'
+alias ytm='youtube-dl --extract-audio --audio-format=aac -t'
+
+# uncompress and untar a file in one go
+alias untar='tar xvf'
+
+# Clipboard -> makeul -> clipboard
+alias ul='pbpaste | makeul | pbcopy'
+
+# Clipboard -> sort -> clipboard
+alias pbs='pbpaste | sort | pbcopy'
+
+# Read a URL in plaintext/mdown in lynx
+alias rmd='lynx --nocolor http://heckyesmarkdown.com/go/u='
+
+# Music - Soma FM
+alias groovesalad='mpg123 --control http://ice1.somafm.com/groovesalad-256-mp3'
+alias ds1='mpg123 --control http://ice1.somafm.com/deepspaceone-128-mp3'
+alias dronezone='mpg123 --control http://ice1.somafm.com/dronezone-256-mp3'
+alias poptron='mpg123 --control http://ice1.somafm.com/poptron-128-mp3'
+alias spacestation='mpg123 --control http://ice1.somafm.com/spacestation-128-mp3'
+alias indiepop='mpg123 --control http://ice1.somafm.com/indiepop-128-mp3'
+alias cliqhop='mpg123 --control http://ice1.somafm.com/cliqhop-256-mp3'
+alias beatblender='mpg123 --control http://ice1.somafm.com/beatblender-128-mp3'
+alias defcon='mpg123 --control http://ice1.somafm.com/defcon-256-mp3'
+alias fluid='mpg123 --control http://ice1.somafm.com/fluid-128-mp3'
+alias lush='mpg123 --control http://ice2.somafm.com/lush-128-mp3'
+alias leftcoast='mpg123 --control http://ice1.somafm.com/seventies-320-mp3'

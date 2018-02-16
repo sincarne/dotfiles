@@ -1,0 +1,112 @@
+# Simple calculator
+function calc() {
+	local result=""
+	result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')"
+	#                       └─ default (when `--mathlib` is used) is 20
+	#
+	if [[ "$result" == *.* ]]; then
+		# improve the output for decimal numbers
+		printf "$result" |
+		sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
+		    -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
+		    -e 's/0*$//;s/\.$//'   # remove trailing zeros
+	else
+		printf "$result"
+	fi
+	printf "\n"
+}
+
+# Dump HTMLified Markdown into lynx
+function vmd() {
+	pandoc --to=html "$@" | lynx -stdin
+}
+
+# Quickly get image dimensions from the command line
+# http://brettterpstra.com/2013/07/24/bash-image-tools-for-web-designers/
+function imgsize() {
+    local width height
+    if [[ -f $1 ]]; then
+        height=$(sips -g pixelHeight "$1"|tail -n 1|awk '{print $2}')
+        width=$(sips -g pixelWidth "$1"|tail -n 1|awk '{print $2}')
+        echo "width=\"${width}\" height=\"${height}\""
+    else
+        echo "File not found"
+    fi
+}
+
+# Create a new directory and enter it
+function mcd() {
+	mkdir -p "$@" && cd "$@"
+}
+
+# Start the PHP web server
+function serve() {
+	if [ $# -eq 0 ]; then
+		php -S localhost:8000
+	else
+		php -S localhost:"$@"
+	fi
+}
+
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh
+	else
+		local arg=-sh
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@"
+	else
+		du $arg .[^.]* *
+	fi
+}
+
+# simpler find (from https://github.com/epochblue/dotfiles/blob/master/.bash_aliases)
+function f() {
+  find . -iname "*$1*";
+}
+
+# Dump contents of file to Firefox
+function toffox() {
+	if [ ! -e '$HOME/tmp' ]; then
+    cd $HOME
+    mkdir tmp
+  fi
+  
+  if [ -e '$HOME/tmp/temp-html.html' ]; then
+    rm $HOME/tmp/temp-html.html
+  fi
+  
+  pandoc "$@" --to=html --output=$HOME/tmp/temp-html.html
+  open -a /Applications/Firefox.app file:///$HOME/tmp/temp-html.html
+}
+
+# `o` with no arguments opens current directory, otherwise opens the given
+# location
+function o() {
+	if [ $# -eq 0 ]; then
+		open .
+	else
+		open "$@"
+	fi
+}
+
+# Run middleman either at port 4567, or at specified port
+function mids() {
+	if [ $# -eq 0 ]; then
+		bundle exec middleman server
+	else
+		bundle exec middleman server -p $1
+	fi
+}
+
+# Open URL in frontmost tab of Safari in lynx
+function slynx() {
+	lynx --nocolor "$(osascript -e 'tell application "Safari" to do shell script "echo " & (URL of current tab of first window as string)')"
+}

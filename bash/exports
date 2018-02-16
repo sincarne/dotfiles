@@ -1,0 +1,24 @@
+# Make micro the default editor
+export EDITOR="micro"
+
+# No duplicates in history
+export HISTCONTROL=ignoredups
+
+# Make some commands not show up in history
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help:youtube-dl:yt:ytm"
+
+# Prefer Canadian English and use UTF-8
+export LANG="en_CA"
+export LC_ALL="en_CA.UTF-8"
+
+# Stop using less
+export MANPAGER="most"
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# Lynx home page
+export WWW_HOME='http://duckduckgo.com/lite'
+
+# Lynx config
+LYNX_CFG=~/lynx.cfg; export LYNX_CFG
