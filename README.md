@@ -8,3 +8,6 @@ Some stuff I wrote, or are related to files I use. Much of the clever stuff is s
 * http://mths.be/dotfiles
 * https://github.com/paulirish/dotfiles
 * http://brettterpstra.com/
+
+## `nano/*`
+I like `nano`, although I'm starting to like `micro` more. Also includes buckets of syntax definitions, because those are increasingly hard to find. Syntax files are expected in `~/.nano/`
