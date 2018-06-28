@@ -18,7 +18,7 @@ set autoindent
 # set backup
 
 ## Constantly display the cursor position in the status bar.
-set const
+set constantshow
 
 ## Use cut to end of line with ^K by default
 set cut
@@ -51,7 +51,7 @@ set cut
 # set nohelp
 
 ## Don't wrap text at all
-# set nowrap
+set nowrap
 
 ## Set operating directory.  nano will not read or write files outside
 ## this directory and its subdirectories.  Also, the current directory

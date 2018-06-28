@@ -3,3 +3,6 @@ PATH=$HOME/bin:$PATH
 
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Add cargo bin
+export PATH="$PATH:$HOME/.cargo/bin"
